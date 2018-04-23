@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# PyCharm
+.idea
+.idea/*
+.idea/**/*
+.idea/vcs.xml
