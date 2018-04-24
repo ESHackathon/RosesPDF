@@ -1,0 +1,165 @@
+<template>
+  <v-stepper v-model="e6" vertical>
+    <v-stepper-step step="1" :complete="e6 > 1">
+      Title
+      <small>The title must indicate that it is a systematic review protocol, and must indicate if it is an update/amendment: e.g. "A systematic review update protocol...".</small>
+    </v-stepper-step>
+    <v-stepper-content step="1">
+      <v-form v-model="valid" ref="form" lazy-validation>
+        <v-text-field
+          label="Title"
+          v-model="title"
+          :rules="titleRules"
+          :counter="10"
+          required
+        ></v-text-field>
+      </v-form>
+      <v-btn color="primary" @click.native="e6 = 2">Continue</v-btn>
+      <v-btn flat>Cancel</v-btn>
+    </v-stepper-content>
+
+    <v-stepper-step step="2" :complete="e6 > 2">
+      Type of Review
+      <small>Select one of the following types of review: systematic review, systematic review update, systematic review amendment, systematic review from a systematic map.</small>
+    </v-stepper-step>
+    <v-stepper-content step="2">
+      <v-select
+        label="TypeOfReview"
+        v-model="typeOfReview"
+        :items="items"
+        :rules="[v => !!v || 'Item is required']"
+        required
+      ></v-select>
+      <v-btn color="primary" @click.native="e6 = 3">Continue</v-btn>
+      <v-btn flat>Cancel</v-btn>
+    </v-stepper-content>
+
+    <v-stepper-step step="3" :complete="e6 > 3">
+      Author Contracts
+      <small>The full names, institutional addresses, and email addresses for all authors must be provided.</small>
+    </v-stepper-step>
+    <v-stepper-content step="3">
+      <v-checkbox
+        label="Authors Contracts"
+        v-model="authorsContracts"
+        :rules="[v => !!v || 'You must agree to continue!']"
+        required
+      ></v-checkbox>
+      <v-btn color="primary" @click.native="e6 = 4">Continue</v-btn>
+      <v-btn flat>Cancel</v-btn>
+    </v-stepper-content>
+
+    <v-stepper-step step="4" :complete="e6 > 4">
+      Abstract
+      <small>Abstract must not exceed 350 words and must include two sections 1) Background, the context and purpose of the review, including the review question; 2) Methods, how the review will be conducted and the outputs that are expected (specifically mention search strategy, inclusion criteria, critical appraisal, data extraction and synthesis).</small>
+    </v-stepper-step>
+    <v-stepper-content step="4">
+      <v-checkbox
+        label="Abstract"
+        v-model="abstract"
+        :rules="[v => !!v || 'You must agree to continue!']"
+        required
+      ></v-checkbox>
+      <v-btn color="primary" @click.native="e6 = 5">Continue</v-btn>
+      <v-btn flat>Cancel</v-btn>
+    </v-stepper-content>
+
+    <v-stepper-step step="5" :complete="e6 > 5">
+      Background
+      <small>Describe the rationale for the review in the context of what is already known. Protocol must indicate why this study was necessary and what it aims to contribute to the field.</small>
+    </v-stepper-step>
+    <v-stepper-content step="5">
+      <v-checkbox
+        label="Background"
+        v-model="background"
+        :rules="[v => !!v || 'You must agree to continue!']"
+        required
+      ></v-checkbox>
+      <v-btn color="primary" @click.native="e6 = 6">Continue</v-btn>
+      <v-btn flat>Cancel</v-btn>
+    </v-stepper-content>
+
+    <v-stepper-step step="6" :complete="e6 > 6">
+      Stakeholder Agreement
+      <small>The planned/actual role of stakeholders throughout the review process (e.g. in the formulation of the question) must be described and explained (using a broad definition of ‘stakeholder’, including e.g. researchers, funders and other decision-makers)</small>
+    </v-stepper-step>
+    <v-stepper-content step="6">
+      <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+      <v-btn color="primary" @click.native="e6 = 7">Continue</v-btn>
+      <v-btn flat>Cancel</v-btn>
+    </v-stepper-content>
+
+    <v-stepper-step step="7" :complete="e6 > 7">
+      Submit Form
+      <small>Already we will generate your .pdf report</small>
+    </v-stepper-step>
+    <v-stepper-content step="7">
+      <v-btn
+        @click="submit"
+        :disabled="!valid"
+      >
+        submit
+      </v-btn>
+      <v-btn @click="clear">clear</v-btn>
+    </v-stepper-content>
+  </v-stepper>
+</template>
+
+<script>
+  import download from 'downloadjs'
+
+  export default {
+    name: 'systematic-review-protocol',
+    data () {
+      return {
+        message: 'Hi Vue!',
+        e6: 1,
+        valid: true,
+        title: '',
+        titleRules: [
+          v => !!v || 'Title is required',
+          v => (v && v.length <= 10) || 'Title must be less than 10 characters'
+        ],
+        typeOfReview: null,
+        items: [
+          'Systematic Review',
+          'Systematic Review Update',
+          'Systematic Review Amendment',
+          'Systematic Review from Systematic Map'
+        ],
+        authorsContracts: false,
+        abstract: false,
+        background: false,
+        stakeholderAgreement: false
+      }
+    },
+    methods: {
+      submit () {
+        if (this.$refs.form.validate()) {
+          // Native form submission is not yet supported
+          const data = {
+            title: this.title,
+            typeOfReview: this.typeOfReview,
+            authorsContracts: this.authorsContracts,
+            background: this.background,
+            stakeholderAgreement: this.stakeholderAgreement
+          }
+          this.axios.post('http://127.0.0.1:5000/', data, {
+            responseType: 'blob',
+            headers: {
+              'Accept': 'application/pdf'
+            }
+          }).then((resp) => {
+            download(resp.data, 'Report.pdf')
+          })
+        }
+      },
+      clear () {
+        this.$refs.form.reset()
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+</style>
