@@ -1,0 +1,52 @@
+{
+    'title': '',
+    'typeOfReview': '',
+    'authorsContracts': '',
+    'abstract': '',
+    'background': '',
+    'stakeholderAgreement': '',
+    'objectivesOfTheReview': {
+        'objectives': '',
+        'definitionsOfTheQuestionComponent': ''
+    },
+    'methods': '',
+    'searches': {
+        'searchStrategy': '',
+        'searchString': '',
+        'languagesBibliographicDatabases': [],
+        'languagesGreyDatabases': [],
+        'webSearchEngines': [],
+        'organisationalWebsites': [],
+        'estimatingTheComprehensivenessOfTheSearch': '',
+        'searchUpdate': ''
+    },
+    'articleScreeningAndStudyInclusionCriteria': {
+        'screeningStrategy': '',
+        'consistencyChecking': '',
+        'inclusionCriteria' : '',
+        'reasonsForExclusion': ''
+    },
+    'criticalAppraisal': {
+        'criticalAppraisalUsedInSynthesis': '',
+        'consistencyChecking': ''
+    },
+    'dataExtraction': {
+        'metaDataExtractionAndCodingStrategy': '',
+        'dataExtractionStrategy': '',
+        'approachesToMissingData': '',
+        'consistencyChecking': ''
+    },
+    'potentialEffectModifiersForHeterogeneityy': '',
+    'dataSynthesisANdPresentationTypeOfSynthesis': {
+        'narrativeSynthesisStrategy': '',
+        'quantitativeSynthesisStrategy': '',
+        'qualitativeSynthesisStrategy': '',
+        'otherSynthesisStrategy': '',
+        'assessmentOfRiskOfPublicationBias': '',
+        'knowledgeGapAndClusterIdentificationStrategy': '',
+        'demonstratingProceduralIndependence': '',
+    },
+    'declarations': {
+        'competingInterests': ''
+    }
+}

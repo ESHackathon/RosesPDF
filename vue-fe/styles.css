@@ -1,0 +1,41 @@
+/*
+html,
+body {
+    height: 100%;
+    font-family: 'Roboto';
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+select, textarea, input {
+	width: 100%;
+	padding: .5em;
+	margin: 0;
+	font-weight: 400;
+	font-size: 1rem;
+}
+
+label {
+    align-self: flex-start;
+}
+
+input {
+    width: 100%;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-container {
+    margin: 0 auto;
+    width: 512px;
+}
+
+.flex-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+*/
