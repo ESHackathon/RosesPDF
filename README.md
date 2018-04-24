@@ -1,2 +1,3 @@
-# RosesPDF
-PDF generator for the roses website.
+# ROSES Website
+RepOrting standards for Systematic Evidence Syntheses
+

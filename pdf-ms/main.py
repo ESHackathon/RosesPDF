@@ -1,12 +1,14 @@
 import pdfkit
+import filters
 
 from flask import Flask, render_template, request, abort, make_response
-from filters import title
 
 app = Flask(__name__)
 
 # Add the Jinja filters.
-app.jinja_env.filters['title'] = title
+app.jinja_env.filters['title'] = filters.title
+app.jinja_env.filters['is_dict'] = filters.is_dict
+app.jinja_env.filters['is_list'] = filters.is_list
 
 
 @app.route('/', methods=['POST'])
@@ -28,55 +30,69 @@ def generate_pdf():
 @app.route('/', methods=['GET'])
 def test_render():
     json_data = {
-        'title': '',
-        'typeOfReview': '',
-        'authorsContracts': '',
-        'abstract': '',
-        'background': '',
-        'stakeholderAgreement': '',
+        'title': 'This is my test title',
+        'typeOfReview': 'systematic review',
+        'authorsContracts': 'Yes',
+        'abstract': 'Yes',
+        'background': 'Yes',
+        'stakeholderAgreement': 'Yes',
         'objectivesOfTheReview': {
-            'objectives': '',
-            'definitionsOfTheQuestionComponent': ''
+            'objectives': 'Not applicable',
+            'definitionsOfTheQuestionComponent': 'Break down and summarise question key elements e.g. population, intervention(s)/exposure(s), comparator(s), and outcome(s).'
         },
-        'methods': '',
+        'methods': 'My own methods',
         'searches': {
-            'searchStrategy': '',
-            'searchString': '',
-            'languagesBibliographicDatabases': [],
-            'languagesGreyDatabases': [],
-            'webSearchEngines': [],
-            'organisationalWebsites': [],
-            'estimatingTheComprehensivenessOfTheSearch': '',
-            'searchUpdate': ''
+            'searchStrategy': 'Yes',
+            'searchString': 'hello world thanks for everything',
+            'languagesBibliographicDatabases': [
+                'lang db 01',
+                'lang db 02'
+            ],
+            'languagesGreyDatabases': [
+                'grey db 01',
+                'grey db 02'
+            ],
+            'webSearchEngines': [
+                'http://www.google.com/',
+                'http://www.bing.com/',
+                'http://www.yahoo.com/'
+            ],
+            'organisationalWebsites': [
+                'http://www.digitalsolutionfoundry.co.za/',
+                'http://www.hello.com/'
+            ],
+            'estimatingTheComprehensivenessOfTheSearch': 'Yes',
+            'searchUpdate': 'No'
         },
         'articleScreeningAndStudyInclusionCriteria': {
-            'screeningStrategy': '',
-            'consistencyChecking': '',
-            'inclusionCriteria' : '',
-            'reasonsForExclusion': ''
+            'screeningStrategy': 'Yes',
+            'consistencyChecking': 'Yes',
+            'inclusionCriteria': 'Yes',
+            'reasonsForExclusion': 'Yes'
         },
         'criticalAppraisal': {
-            'criticalAppraisalUsedInSynthesis': '',
-            'consistencyChecking': ''
+            'criticalAppraisalUsedInSynthesis': 'Yes',
+            'consistencyChecking': 'Yes'
         },
         'dataExtraction': {
-            'metaDataExtractionAndCodingStrategy': '',
-            'dataExtractionStrategy': '',
-            'approachesToMissingData': '',
-            'consistencyChecking': ''
+            'metaDataExtractionAndCodingStrategy': 'Yes',
+            'dataExtractionStrategy': 'Yes',
+            'approachesToMissingData': 'Yes',
+            'consistencyChecking': 'Yes'
         },
-        'potentialEffectModifiersForHeterogeneityy': '',
-        'dataSynthesisANdPresentationTypeOfSynthesis': {
-            'narrativeSynthesisStrategy': '',
-            'quantitativeSynthesisStrategy': '',
-            'qualitativeSynthesisStrategy': '',
-            'otherSynthesisStrategy': '',
-            'assessmentOfRiskOfPublicationBias': '',
-            'knowledgeGapAndClusterIdentificationStrategy': '',
-            'demonstratingProceduralIndependence': '',
+        'potentialEffectModifiersForHeterogeneity': 'Yes',
+        'dataSynthesisAndPresentation': {
+            'typeOfSynthesis': 'narrative only',
+            'narrativeSynthesisStrategy': 'Yes',
+            'quantitativeSynthesisStrategy': 'Yes',
+            'qualitativeSynthesisStrategy': 'Yes',
+            'otherSynthesisStrategy': 'Yes',
+            'assessmentOfRiskOfPublicationBias': 'Yes',
+            'knowledgeGapAndClusterIdentificationStrategy': 'Yes',
+            'demonstratingProceduralIndependence': 'Yes'
         },
         'declarations': {
-            'competingInterests': ''
+            'competingInterests': 'Yes'
         }
     }
 

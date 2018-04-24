@@ -1,11 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<table class="data-table">
-    {% for key, value in data.items() %}
-    <tr>
-        <th width="200">{{ key | title }}</th>
-        <td>{{ value }}</td>
-    </tr>
-    {% endfor %}
-</table>
+{% with object=data %}
+    {% include "dictTable.html" %}
+{% endwith %}
 {% endblock %}
