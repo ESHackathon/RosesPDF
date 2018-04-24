@@ -9,6 +9,38 @@
             </header>
           </v-flex>
         </v-layout>
+        <v-layout row>
+          <v-flex sm12 md8 offset-md2>
+            <v-toolbar color="primary" dark>
+              <v-toolbar-side-icon class="show-md-and-up"></v-toolbar-side-icon>
+              <v-spacer></v-spacer>
+              <v-toolbar-items class="hidden-sm-and-down">
+                <v-btn flat>Home</v-btn>
+                <v-btn flat>About</v-btn>
+                <v-btn flat>Forms</v-btn>
+                <v-btn flat>Publications</v-btn>
+                <v-btn flat>Editors & Journals</v-btn>
+                <v-btn flat>Contact Us</v-btn>
+                <v-menu :nudge-width="100">
+                  <v-btn icon slot="activator">
+                    <v-icon>more_vert</v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile>
+                      <v-list-tile-title>Useful Links</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile>
+                      <v-list-tile-title>Updates & Extensions</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile>
+                      <v-list-tile-title>Examples of Use</v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
+              </v-toolbar-items>
+            </v-toolbar>
+          </v-flex>
+        </v-layout>
         <router-view />
       </v-container>
     </v-content>
