@@ -2,8 +2,10 @@ import pdfkit
 import filters
 
 from flask import Flask, render_template, request, abort, make_response
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Add the Jinja filters.
 app.jinja_env.filters['title'] = filters.title
@@ -24,6 +26,7 @@ def generate_pdf():
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=%s.pdf' % 'yourfilename'
+    response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
 
