@@ -35,20 +35,21 @@ new Vue({
         submit () {
             if (this.$refs.form.validate()) {
             // Native form submission is not yet supported
-                axios.post('http://127.0.0.1:5000/', {
+                const data = {
                     title: this.title,
                     typeOfReview: this.typeOfReview,
                     authorsContracts: this.authorsContracts,
                     background: this.background,
                     stakeholderAgreement: this.stakeholderAgreement
+                };
+                console.warn(data);
+                axios.post('http://127.0.0.1:5000/', data, {
+                    responseType: 'blob',
+                    headers: {
+                        'Accept': 'application/pdf'
+                    }
                 }).then((resp) => {
-                    console.warn('resp.data', resp.data);
-                    const blob = new Blob([resp.data], {type: 'application/pdf'});
-                    const link = document.createElement('a');
-                    link.href = window.URL.createObjectURL(blob);
-                    link.setAttribute('download', 'file.pdf');
-                    document.body.appendChild(link);
-                    link.click();
+                    download(resp.data, 'Report.pdf');
                 })
             }
         },
