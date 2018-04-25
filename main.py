@@ -27,7 +27,6 @@ def generate_pdf():
 
     response = make_response(pdf)
     response.headers['Content-Disposition'] = 'inline; filename=Report.pdf'
-    response.headers['Content-Length'] = sys.getsizeof(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
