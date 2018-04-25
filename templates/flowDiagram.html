@@ -1,0 +1,66 @@
+<div class="flow-diagram"></div>
+<script>
+    function createGraph() {
+        const data = [{
+            index: 0,
+            text: 'Records identified through database searching',
+            data: {
+                n: 0
+            },
+            connect: [{
+                index: 2,
+                direction: 'below'
+            }]
+        }, {
+            index: 1,
+            text: 'Records identified through other sources, listed',
+            data: {
+                n: 0
+            },
+            connect: [{
+                index: 2,
+                direction: 'below'
+            }]
+        }];
+
+        // Create SVG.
+        const svg = d3.select('.flow-diagram')
+            .append('svg')
+            .attr('width', '210mm')
+            .attr('height', '297mm');
+        const flowGroup = svg.append('g');
+
+        // Plot nodes.
+        const nodeWidth = 300;
+        const nodeHeight = 80;
+        const nodeMargin = 30;
+
+        const nodes = flowGroup.selectAll('g')
+            .data(data)
+            .enter()
+            .append('g')
+            .attr('class', 'node')
+            .attr('transform', function (d, i) {
+                return 'translate(0, ' + i * (nodeHeight + nodeMargin) + ')';
+            });
+
+        const nodeRects = nodes.append('rect')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', nodeWidth)
+            .attr('height', nodeHeight);
+
+        nodeRects.append('text')
+            .attr('text-anchor', 'middle')
+            .text(function (d) {
+                console.warn('text', d.text);
+                return d.text;
+            });
+
+        // Center the graph.
+        //const xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
+        //inner.attr("transform", "translate(" + xCenterOffset + ", 20)");
+        // svg.attr('height', g.graph().height + 40);
+    }
+    createGraph();
+</script>
